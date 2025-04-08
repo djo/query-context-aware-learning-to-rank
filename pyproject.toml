@@ -1,0 +1,19 @@
+[project]
+name = "transformer"
+version = "0.1.0"
+description = "Deep self-attention transformer model trained with causal language modeling"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ipykernel>=6.29.5",
+    "polars>=1.22.0",
+    "tensorflow-ranking>=0.5.3",
+    "tensorflow-macos==2.13.1",
+    "tensorflow-io-gcs-filesystem==0.34.0",
+    "tensorflow-io>=0.34.0",
+    "pyarrow>=19.0.1",
+    "pandas>=2.1.0",
+    "numpy>=1.24.3",
+    "typing-extensions>=4.5.0",
+    "tensorflow-metal>=1.2.0",
+]
