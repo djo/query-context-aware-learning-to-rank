@@ -1,7 +1,6 @@
 # Query Context-Aware Sequential Ranking
 
-This repository provides the implementation and evaluation of the methods described in the paper
-Efficient and Effective Query Context-Aware Learning-to-Rank Model for Sequential Recommendation.
+Provides implementations and evaluations of a query context-aware learning-to-rank model for sequential recommendation.
 
 ## Folder structure
 
@@ -13,14 +12,15 @@ Efficient and Effective Query Context-Aware Learning-to-Rank Model for Sequentia
 ├── train_model.py           # Script for model training
 └── README.md                # Documentation
 ```
+
 ## Data
 
-Notebooks in `datasets` subdirectory provide code to download and preprocess the datasets.
-Their execution results in `files` directory being populated with the respective test and train parquet files.
+The notebooks in the `datasets` directory contain code to automatically download and preprocess the datasets.
+After running these notebooks, the processed training and test data will be saved as Parquet files in the `files` directory.
 
 ## Training procedure
 
-The entry point to start training the model is the `train_model.py` script.
+The entry point to start training the model is the `train_model.py`.
 
 Parameters:
 
@@ -41,55 +41,42 @@ Parameters:
 * `--query_context_dropout_rate`: dropout rate for query context information; applicable only for `IN_INPUT` integration type (default: 0.0)
 * `--query_context_dropout_in_train`: whether to apply query context dropout during training; applicable only for `IN_INPUT` integration typ (0=disabled, 1=enabled, default: 0)
 
-## Usage example
 
-To experiment locally with a small subset of data (10K):
+## Usage
 
-To debug locally, one can use the following command
+Below are example commands for training the model with different integration types and options. Replace paths as needed.
 
+**Quick experiment with a small subset:**
 ```bash
-python train_model.py --dataset taobao --train_path datasets/files --test_path datasets/files --output_data_path ./model_output --integration IN_INPUT --num_epochs 2 --num_samples 10_000 --batch_size 32
+python train_model.py --dataset taobao --train_path datasets/files --test_path datasets/files --output_data_path ./model_output --integration IN_INPUT --num_epochs 2 --num_samples 10000 --batch_size 32
 ```
 
-All the experiments were conducted with the default hyperparameters from the repo
-
-## Executions used in the paper evaluation
-
-All hyperparameters used are set as defaults in the project and can be found in the source code configuration.
-Therefore, only the integration type needs to be specified.
-
-NO_QUERY_CONTEXT integration type:
-
+**No query context (NO_QUERY_CONTEXT):**
 ```bash
 python train_model.py --dataset taobao --train_path datasets/files --test_path datasets/files --output_data_path ./model_output --integration NO_QUERY_CONTEXT
 ```
 
-OUTSIDE integration type:
-
+**Query context outside transformer blocks (OUTSIDE):**
 ```bash
 python train_model.py --dataset taobao --train_path datasets/files --test_path datasets/files --output_data_path ./model_output --integration OUTSIDE
 ```
 
-IN_INPUT integration type:
-
+**Query context concatenated in input (IN_INPUT):**
 ```bash
 python train_model.py --dataset taobao --train_path datasets/files --test_path datasets/files --output_data_path ./model_output --integration IN_INPUT
 ```
 
-IN_INPUT integration type with the dropout rate 0.25:
-
+**IN_INPUT with query context dropout (rate 0.25, enabled during training):**
 ```bash
 python train_model.py --dataset taobao --train_path datasets/files --test_path datasets/files --output_data_path ./model_output --integration IN_INPUT --query_context_dropout_rate 0.25 --query_context_dropout_in_train 1
 ```
 
-IN_INPUT integration type with the historical query context in evaluation:
-
+**IN_INPUT using historical query context during evaluation:**
 ```bash
-python train_model.py --dataset taobao --train_path datasets/files --test_path datasets/files --output_data_path ./model_output --integration IN_INPUT --past_query_context_in_test 1 
+python train_model.py --dataset taobao --train_path datasets/files --test_path datasets/files --output_data_path ./model_output --integration IN_INPUT --past_query_context_in_test 1
 ```
 
-LAST_LAYER_AND_OUTSIDE integration type:
-
+**Query context in last layer and outside transformer blocks (LAST_LAYER_AND_OUTSIDE):**
 ```bash
 python train_model.py --dataset taobao --train_path datasets/files --test_path datasets/files --output_data_path ./model_output --integration LAST_LAYER_AND_OUTSIDE
 ```
