@@ -1,6 +1,6 @@
 # Query Context-Aware Sequential Ranking
 
-Provides implementations and evaluations of a query context-aware learning-to-rank model for sequential recommendation.
+This project, implemented by the authors for the paper [Efficient and Effective Query Context-Aware Learning-to-Rank Model for Sequential Recommendation](https://arxiv.org/abs/2507.03789), provides the implementation and evaluation of a query-context-aware learning-to-rank model for sequential recommendation. The model enhances recommendation accuracy by incorporating the user's target query context into the ranking with the CLM modeling.
 
 ## Folder structure
 
